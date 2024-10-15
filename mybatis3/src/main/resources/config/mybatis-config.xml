@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 대소문자 구분해주는것 카멜케이스 -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<!-- oracle 연결 경로 설정 -->
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url"
+					value="jdbc:Oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="java" />
+				<property name="password" value="1234" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!-- 매핑파일경로 설정 -->
+		<mapper resource="com/jin/dao/MemberMapper.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Interface의 구현 클래스 -->
+<mapper namespace="com.jin.dao.MemberMapper">
+	<!-- id를 통해 Mapper 인터페이스와 매핑된다 -->
+	<!-- resultType이 반환되는 타입이다 즉, vo파일 경로를 적어줘야함 -->
+	<select id="members" resultType="com.jin.vo.Member">
+		select * from tbl_member
+	</select>
+	
+	<!-- insert 타입에 resultType을 지정하지 않으면 디폴트값으로 int타입임 -->
+	<insert id="insertMember" parameterType="com.jin.vo.Member">
+		insert into tbl_member (member_id,
+							    member_name,
+							    password,
+							    phone)
+		values				   (#{memberId},
+								#{memberName},
+								#{password},
+								#{phone})
+	</insert>
+	
+	<update id="updateMember" parameterType="com.jin.vo.Member">
+		update tbl_member set responsibility = 'User'
+		<!-- test에는 조건을 적어야함 --> 
+		<!-- if조건문에 해당하면 아래 구문 실행한다 -->
+		<if test="memberName != null">
+			,member_name = #{memberName}
+		</if>
+		<if test="phone != null">
+			,phone = #{phone}
+		</if>
+		where  member_id = #{memberId}
+	</update>
+	<!-- parameterType="string"의 string는 알리아스이다 원래는 parameterType="java.lang.string" -->
+	<delete id="deleteMember" parameterType="string">
+		DELETE FROM tbl_member
+		WHERE       member_id = #{memberId}
+	
+	</delete>
+</mapper>
