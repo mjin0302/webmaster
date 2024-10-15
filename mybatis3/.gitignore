@@ -4,3 +4,4 @@
 /.settings/
 /.classpath
 /.project
+/.apt_generated_tests/
