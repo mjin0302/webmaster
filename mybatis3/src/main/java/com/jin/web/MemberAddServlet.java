@@ -1,4 +1,4 @@
-package com.yedam.web;
+package com.jin.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;

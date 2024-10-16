@@ -11,6 +11,17 @@
 		select * from tbl_member
 	</select>
 	
+	<select id="selectMember" parameterType="string" resultType="com.jin.vo.Member">
+		SELECT   member_id,
+			     member_name,
+			     password,
+			     phone,
+			     responsibility,
+			     creation_date
+		FROM     tbl_member
+		WHERE    member_id = #{memberId}
+	</select>
+	
 	<!-- insert 타입에 resultType을 지정하지 않으면 디폴트값으로 int타입임 -->
 	<insert id="insertMember" parameterType="com.jin.vo.Member">
 		insert into tbl_member (member_id,
