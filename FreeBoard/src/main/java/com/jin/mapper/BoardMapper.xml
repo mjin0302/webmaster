@@ -7,16 +7,51 @@
 <mapper namespace="com.jin.mapper.BoardMapper">
 
 	<!-- 게시글 전체조회 -->
-	<select id="boardAllList" resultType="board">
-		SELECT 	 board_no,
-		       	 title,
-		       	 content,
-		       	 member_id,
-		       	 view_cnt,
-		       	 write_date,
-		       	 update_date
-		FROM   	 tbl_board
-		ORDER BY board_no
+	<select id="listWithPage" parameterType="search">
+		SELECT b.*
+		FROM  (SELECT rownum rn, a.* 
+		       FROM  (SELECT   *
+		              FROM 	   tbl_board
+		             <where>
+					  	<choose>
+					       	<when test="searchCondition == 'T'.toString()">
+					       			UPPER(title) like '%' || UPPER(#{keyword}) || '%'
+					       	</when>
+					       	<when test="searchCondition == 'W'.toString()">
+					       			UPPER(member_id) like '%' || UPPER(#{keyword}) || '%'	
+					      		</when>
+					       	<when test="searchCondition == 'TW'.toString()">
+					        		(UPPER(member_id) like '%' || UPPER(#{keyword}) || '%')
+			        	OR		 	(UPPER(title)  	  like '%' || UPPER(#{keyword}) || '%')	 
+					       	</when>
+			    		</choose>
+				     </where>
+		              
+		              ORDER BY board_no DESC) a) b
+		WHERE  b.rn >  (#{page} -1 ) * 10
+		<![CDATA[
+		AND    b.rn <= (#{page} * 10)
+		]]>
+		
+	</select>
+	
+	<select id="selectCount" parameterType="search" resultType="int">
+		SELECT COUNT(*)
+		FROM   tbl_board
+	   <where>
+			<choose>
+			  	<when test="searchCondition == 'T'.toString()">
+      			UPPER(title) like '%' || UPPER(#{keyword}) || '%'
+      			</when>
+      			<when test="searchCondition == 'W'.toString()">
+      			UPPER(member_id) like '%' || UPPER(#{keyword}) || '%'	
+     			</when>
+      			<when test="searchCondition == 'TW'.toString()">
+       			(UPPER(member_id) like '%' || UPPER(#{keyword}) || '%')
+     	OR		(UPPER(title)  	  like '%' || UPPER(#{keyword}) || '%')	 
+      			</when>
+ 			</choose>
+	   </where>
 	</select>
 	
 	<insert id="insertBoard" parameterType="board">
@@ -64,21 +99,9 @@
 		UPDATE tbl_board
 		SET    view_cnt = view_cnt + 1
 		WHERE  board_no = #{boardNo}
-	
 	</update>
 	
 	<!-- 페이징 -->
-	<select id="listWithPage" parameterType="int">
-		SELECT b.*
-		FROM  (SELECT rownum rn, a.* 
-		       FROM  (SELECT   *
-		              FROM 	   tbl_board
-		              ORDER BY board_no) a) b
-		WHERE  b.rn >  (#{page} -1 ) * 5
-		<![CDATA[
-		AND    b.rn <= (#{page} * 5)
-		]]>
-		
-	</select>
+	
 	
 </mapper>

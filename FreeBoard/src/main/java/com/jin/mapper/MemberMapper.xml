@@ -48,10 +48,19 @@
 		</if>
 		where  member_id = #{memberId}
 	</update>
+	
 	<!-- parameterType="string"의 string는 알리아스이다 원래는 parameterType="java.lang.string" -->
 	<delete id="deleteMember" parameterType="string">
 		DELETE FROM tbl_member
 		WHERE       member_id = #{memberId}
 	
 	</delete>
+	
+	<!-- 로그인 -->
+	<select id="loginMember" resultType="com.jin.vo.MemberVO">
+		SELECT *
+		FROM   tbl_member
+		WHERE  member_id = #{id}
+		AND    password = #{pw}
+	</select>
 </mapper>

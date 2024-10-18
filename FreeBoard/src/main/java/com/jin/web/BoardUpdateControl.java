@@ -16,8 +16,14 @@ public class BoardUpdateControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("utf-8");
+		
 		// GET: 수정화면, POST: 수정처리
-		String bno = req.getParameter("bno");
+		String bno = req.getParameter("bno");	// 게시글 번호
+		String page = req.getParameter("page");	// 페이지 번호
+		
+		String sc = req.getParameter("searchCondition"); // 검색
+		String kw = req.getParameter("keyword");		 // 키워드
 		
 		req.setCharacterEncoding("utf-8");
 		
@@ -28,6 +34,10 @@ public class BoardUpdateControl implements Control {
 			BoardVO board = service.searchBoard(Integer.parseInt(bno));
 			
 			req.setAttribute("boardvo", board);
+			req.setAttribute("page", page);
+			req.setAttribute("searchCondition", sc);
+			req.setAttribute("keyword", kw);
+			
 			req.getRequestDispatcher("WEB-INF/jsp/boardUpdateForm.jsp").forward(req, resp);
 			
 		} else if(req.getMethod().equals("POST")) {
@@ -44,7 +54,7 @@ public class BoardUpdateControl implements Control {
 			
 			if(service.modifyBoard(board)) {
 				// 정상처리 -> 목록으로 이동	
-				resp.sendRedirect("boardList.do");
+				resp.sendRedirect("boardList.do?page=" + page + "&searchCondition=" + sc + "&keyword=" + kw);
 			} else {
 				board = service.searchBoard(Integer.parseInt(bno));
 				

@@ -15,7 +15,10 @@ public class MemberAddControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-			System.out.println("MemberAddControl");
+			
+		req.setCharacterEncoding("utf-8");
+		
+		System.out.println("MemberAddControl");
 			
 			String id = req.getParameter("mid");
 			String name = req.getParameter("mname");

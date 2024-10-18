@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.jin.common.DataSource;
+import com.jin.common.SearchDTO;
 import com.jin.mapper.BoardMapper;
 import com.jin.vo.BoardVO;
 
@@ -16,9 +17,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 게시글 전체조회
 	@Override
-	public List<BoardVO> boardAllList(int page) {
+	public List<BoardVO> boardAllList(SearchDTO search) {
 
-		return mapper.listWithPage(page);
+		return mapper.listWithPage(search);
 	}
 	
 	// 게시글 등록
@@ -46,8 +47,14 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO searchBoard(int boardNo) {
 		
-		mapper.updateCount(boardNo); // TODO 조회 & 조회수 증가.
+		mapper.updateCount(boardNo); // 조회 & 조회수 증가.
 		return mapper.selectBoard(boardNo);
+	}
+
+	// 전체데이터 수
+	@Override
+	public int getTotalCount(SearchDTO search) {
+		return mapper.selectCount(search);
 	}
 	
 } //BoardServiceImpl()

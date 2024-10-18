@@ -12,7 +12,7 @@ public class BoardVO {
 	 private String content;	// 내용
 	 private String memberId;	// 작성자
 	 private String name;		// 작성자 이름
-	 private String view_cnt;	// 조회수
+	 private int 	viewCnt;	// 조회수
 	 private Date 	writeDate;	// 작성일시
 	 private Date 	updateDate;	// 수정일시
 	 

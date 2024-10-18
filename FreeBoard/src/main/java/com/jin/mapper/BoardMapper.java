@@ -2,6 +2,7 @@ package com.jin.mapper;
 
 import java.util.List;
 
+import com.jin.common.SearchDTO;
 import com.jin.vo.BoardVO;
 
 public interface BoardMapper {
@@ -18,5 +19,7 @@ public interface BoardMapper {
 	
 	int updateCount(int boardNo);		// 조회수 증가
 	
-	List<BoardVO> listWithPage(int page);
+	List<BoardVO> listWithPage(SearchDTO search);
+	
+	int selectCount(SearchDTO search); // 페이징 계산 건수체크
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.jin.common.DataSource;
+import com.jin.common.SearchDTO;
 import com.jin.mapper.BoardMapper;
 import com.jin.vo.BoardVO;
 
@@ -33,11 +34,14 @@ public class AppTest {
 //
 //		}
 		
-		List<BoardVO> list = mapper.listWithPage(3);
+		SearchDTO search = new SearchDTO();
+		search.setKeyword("점심");
+		search.setSearchCondition("T");
+		search.setPage(2);
 		
-		for (BoardVO board : list) {
-			System.out.println(board.toString());
-		}
+//		for (BoardVO board : search) {
+//			System.out.println(board.toString());
+//		}
 
 	}
 }

@@ -12,4 +12,7 @@ public interface MemberService {
 	
 	// 회원목록 출력 메소드
 	List<MemberVO> memberList();
+	
+	// 로그인
+	MemberVO loginCheck(String id, String pw);
 }

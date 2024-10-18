@@ -3,11 +3,19 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="../includes/header.jsp"></jsp:include>
 
-    <h3>수정화면 조회</h3>
+    <h3>수정화면 조회(update.jsp)</h3>
 
     <% 
     	BoardVO vo = (BoardVO) request.getAttribute("boardvo");
         String msg = (String) request.getAttribute("msg");
+        
+        String pg = (String) request.getAttribute("page");
+        
+        String sc = (String) request.getAttribute("searchCondition");
+    	String kw = (String) request.getAttribute("keyword");
+    	kw = kw == null ? "" : kw;
+
+        String logId = (String) session.getAttribute("logId");
     %>
     <% 
 	    if(msg != null) {
@@ -17,6 +25,9 @@
 	    }
     %>
     <form action="boardUpdate.do" method="POST">
+        <input type="hidden" class="" name="page" readonly value="<%= pg %>">
+        <input type="hidden" class="" name="searchCondition" readonly value="<%=sc %>">
+        <input type="hidden" class="" name="keyword" readonly value="<%=kw %>">
         <table class="table">
             <tr>
                 <th class="text-center">글번호</th>
@@ -45,8 +56,8 @@
         </table>
         
         <div class="mx-auto text-center">
-        	<button type="submit" class="btn btn-warning text-center btn-lg m-1">저장</button>
-        	<button type="reset" class="btn btn-warning text-center btn-lg m-1">취소</button>
+        	<button type="submit" <%=logId != null && logId.equals(vo.getMemberId()) ? "" : "disabled" %> class="btn btn-warning text-center btn-lg m-1">저장</button>
+        	<button type="reset" class="btn btn-secondary text-center btn-lg m-1">취소</button>
         </div>
         
     </form>

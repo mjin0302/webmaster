@@ -1,6 +1,7 @@
 package com.jin.web;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,10 @@ public class MemberListControl implements Control {
 
 	// Control의 구현 클래스
 	@Override
-	public void exec(HttpServletRequest req, HttpServletResponse resp) {
+	public void exec(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+		
+		req.setCharacterEncoding("utf-8");
+		
 		System.out.println("req : " + req + "resp : " + resp);
 		System.out.println("MemberListControl");
 		

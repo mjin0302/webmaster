@@ -14,7 +14,9 @@ public class BoardDeleteControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		req.setCharacterEncoding("utf-8");
+		
 		// 삭제
 		String bno = req.getParameter("bno");
 		

@@ -6,6 +6,7 @@
 
     <% 
         String msg = (String) request.getAttribute("msg");
+        String logId = (String) session.getAttribute("logId");
     %>
     <% 
 	    if(msg != null) {
@@ -32,7 +33,7 @@
             <tr>
                 <th class="text-center">작성자</th>
                 <td>
-                    <input type="text" class="form-control" name="memberId">
+                    <input type="text" class="form-control" value="<%= logId%>" readonly name="memberId">
                 </td>
             </tr>
         </table>

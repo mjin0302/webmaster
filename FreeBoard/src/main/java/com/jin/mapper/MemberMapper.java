@@ -2,6 +2,8 @@ package com.jin.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jin.vo.MemberVO;
 
 
@@ -21,5 +23,6 @@ public interface MemberMapper {
 
 	public int deleteMember(String memberId); 	// 멤버삭제
 	
-	
+	// 아이디 & 비밀번호
+	public MemberVO loginMember(@Param("id") String id, @Param("pw") String pw); // 아이디와 비번 조회
 }

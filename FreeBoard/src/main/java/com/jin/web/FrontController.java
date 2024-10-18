@@ -52,7 +52,9 @@ public class FrontController extends HttpServlet{
 		
 		// 글 삭제
 		map.put("/boardDelete.do", new BoardDeleteControl()); // 게시글 삭제
-	
+		
+		map.put("/loginForm.do", new LoginFormControl());
+		map.put("/loginOut.do", new LogOutControl());
 	}
 	
 	// front controller
