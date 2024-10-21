@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <jsp:include page="../includes/header.jsp"></jsp:include>
 <h3>로그인화면(loginForm.jsp)</h3>
+
 
 <form action="loginForm.do" method="POST">
     <table class="table">

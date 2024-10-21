@@ -41,11 +41,11 @@ public class BoardListControl implements Control {
 		// 서버에서 응답받은 값을 req<boardList, list> 형태
 		req.setAttribute("boardList", list);
 		req.setAttribute("page", new PageDTO(Integer.parseInt(page), totalCount));
-		req.setAttribute("searchCondition", sc);
+		req.setAttribute("search", sc);
 		req.setAttribute("keyword", kw);
 		
 		// jsp 페이지
-		req.getRequestDispatcher("WEB-INF/jsp/boardList.jsp").forward(req, resp);
+		req.getRequestDispatcher("board/boardList.tiles").forward(req, resp);
 		
 	}
 	

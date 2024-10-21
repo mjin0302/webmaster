@@ -7,9 +7,13 @@
 	<!-- db정보 파일 위치 제공 -->
 	<properties resource="config/db.properties" />
 
-	<!-- 대소문자 구분해주는것 카멜케이스 -->
+	
 	<settings>
+		<!-- 대소문자 구분해주는것 카멜케이스 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
+		
+		<!-- 값이 없을경우에 NULL값을 넣어주는 셋팅 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 
 	<typeAliases>

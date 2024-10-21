@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jin.common.Control;
 
-@WebServlet("*.do") // .do로 끝나는 파일들은 해당 서비스를 실행한다.
+//@WebServlet("*.do") // .do로 끝나는 파일들은 해당 서비스를 실행한다.
 public class FrontController extends HttpServlet{
 	
 	Map<String, Control> map;
@@ -55,6 +55,8 @@ public class FrontController extends HttpServlet{
 		
 		map.put("/loginForm.do", new LoginFormControl());
 		map.put("/loginOut.do", new LogOutControl());
+		
+		map.put("/javascript.do", new JavaScriptCont());
 	}
 	
 	// front controller

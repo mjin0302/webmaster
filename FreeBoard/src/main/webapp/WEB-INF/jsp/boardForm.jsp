@@ -15,7 +15,7 @@
     <% 
 	    }
     %>
-    <form action="boardAdd.do" method="post">
+    <form action="boardAdd.do" method="post" enctype="multipart/form-data">
         <table class="table">
             <tr>
                 <th class="text-center">제목</th>
@@ -28,6 +28,12 @@
                 <td>
                     <textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
                     
+                </td>
+            </tr>
+            <tr>
+                <th class="text-center">이미지</th>
+                <td>
+                    <input type="file" class="form-control" name="img">
                 </td>
             </tr>
             <tr>

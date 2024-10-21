@@ -15,5 +15,6 @@ public class BoardVO {
 	 private int 	viewCnt;	// 조회수
 	 private Date 	writeDate;	// 작성일시
 	 private Date 	updateDate;	// 수정일시
+	 private String img;		// 파일 
 	 
 }

@@ -10,8 +10,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
-
 	<h3>글 목록(boardList.jsp)</h3>
 
     <% 
@@ -67,7 +65,7 @@
 			            	<a href='board.do?searchCondition=${ searchCondition }&keyword=${ keyword }&page=${ page.page }&bno=${ board.boardNo }'>${ board.title } </a>
 			            </td>
 			            <td><c:out value="${ board.memberId }" /></td>
-			            <td> <fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			            <td><fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			            <td><c:out value="${ board.viewCnt }" /></td>
 			        </tr>
 				</c:when>
@@ -129,4 +127,3 @@
 			</c:choose>
         </ul>
     </nav>
-<jsp:include page="../includes/footer.jsp"></jsp:include>

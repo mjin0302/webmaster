@@ -2,50 +2,45 @@
 <%@page import="com.jin.vo.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="../includes/header.jsp"></jsp:include>
     <h3>상세페이지(board.jsp)</h3>
-    
-    <%
-        BoardVO vo = (BoardVO) request.getAttribute("boardvo");
-        String pg = (String) request.getAttribute("page");
-
-        String sc = (String) request.getAttribute("searchCondition");
-    	String kw = (String) request.getAttribute("keyword");
-    	
-    	kw = kw == null ? "" : kw;
-    	
-    	SimpleDateFormat dtFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-    	String wdate = dtFormat.format(vo.getWriteDate());
-    %>
     <form action="boardUpdate.do" method="GET">
         <table class="table">
             <thead>
-                <tr class="text-center">    
+                <tr class="p-2 text-center">    
                     <th>글번호</th>
-                    <td>13</td>
-                    <th>조회수</th>
-                    <td>3</td>
+                    <td class="text-start">${boardvo.getBoardNo()}</td>
+                    <th>작성자</th>
+                    <td class="text-start">${boardvo.getMemberId()}</td>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center">
-                    <th colspan="2" class="text-center">제묙</th>
-                    <td colspan="2" class="form-control text-start"><%= vo.getTitle() %></td>
+                <tr class="p-2 text-center">
+                    <th>제목</th>
+                    <td class="text-start">${boardvo.getTitle()}</td>
+                    <th>조회수</th>
+                    <td class="text-start">${boardvo.getViewCnt()}</td>
                 </tr>
-                <tr >
-                    <th colspan="2" class="text-center">내용</th>
-                    <td colspan="2" class="text-start">
-                        <textarea name="" id="" cols="100%" rows="10" class="p-2 form-control" readonly><%= vo.getContent() %></textarea>
+                <tr class="p-2 text-center">
+                    <th class="text-center">작성일시</th>
+                    <td colspan="3" class="text-start"><fmt:formatDate value="${ boardvo.writeDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                </tr>
+                <tr class="p-2 text-center">
+                    <th class="text-center">내용</th>
+                    <td colspan="3" class="text-center">
+                        <textarea name="" id="" cols="100%" rows="7" class="form-control" readonly>${boardvo.getContent()}</textarea>
                     </td>
                 </tr>
-                <tr class="text-center">
-                    <th colspan="2" class="text-center">작성자</th>
-                    <td colspan="2" class="text-start form-control"><%= vo.getMemberId() %></td>
-                </tr>
-                <tr class="text-center">
-                    <th colspan="2" class="text-center">작성일시</th>
-                    <td colspan="2" class="text-start form-control"><%= wdate %></td>
+                <tr class="p-2">
+                    <th class="text-center">이미지</th>
+                    <c:if test="${ boardvo.getImg() } != null">
+                        <td colspan="3"><img src="images/${ boardvo.getImg() }" alt="" width="300px" height="auto"></td>
+                    </c:if>
                 </tr>
             </tbody>
         </table>
@@ -63,10 +58,10 @@
     buttonEle.forEach((ele) => {
         ele.addEventListener('click', (event) => {
             if(event.target.textContent == "수정") {
-                location.href = 'boardUpdate.do?searchCondition=<%=sc %>&keyword=<%=kw %>&page=<%= pg %>&bno=<%= vo.getBoardNo() %>';
+                location.href = 'boardUpdate.do?searchCondition=${search}&keyword=${keyword}&page=${page}&bno=${boardvo.getBoardNo()}';
             } 
             if(event.target.textContent == "삭제") {
-                location.href = 'boardDelete.do?searchCondition=<%=sc %>&keyword=<%=kw %>&page=<%= pg %>&bno=<%= vo.getBoardNo() %>';
+                location.href = 'boardDelete.do?searchCondition=${search}&keyword=${keyword}&page=${page}&bno=${boardvo.getBoardNo()}';
             } 
         });
     });

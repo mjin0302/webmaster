@@ -10,6 +10,8 @@ import com.jin.common.Control;
 import com.jin.service.BoardService;
 import com.jin.service.BoardServiceImpl;
 import com.jin.vo.BoardVO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class BoardAddControl implements Control {
 
@@ -18,15 +20,30 @@ public class BoardAddControl implements Control {
 
 		req.setCharacterEncoding("utf-8");
 		
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
-		String memberId = req.getParameter("memberId");
+		String savePath = req.getServletContext().getRealPath("images");
+		int maxSize = 1024 * 1025 * 5;	// 최대 사이즈
+		
+		// Multipart요청에 대한 처리로 변경
+		MultipartRequest mr = new MultipartRequest(
+					req, 		// 1. 요청정보
+					savePath,	// 2. 저장경로
+					maxSize,	// 3. 최대크기
+					"utf-8",	// 4. encoding 방식
+					new DefaultFileRenamePolicy()
+				);//	5. 리네임 정책
+		
+		// title, content, writer 3개 파라미터. db 등록 -> 목록 보여주기
+		// key=value&key=value text처리
+		String title = mr.getParameter("title");
+		String content = mr.getParameter("content");
+		String memberId = mr.getParameter("memberId");
+		String img = mr.getFilesystemName("img");
 		
 		BoardVO vo = new BoardVO();
-		
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setMemberId(memberId);
+		vo.setImg(img);
 		
 		BoardService service = new BoardServiceImpl();
 		try {

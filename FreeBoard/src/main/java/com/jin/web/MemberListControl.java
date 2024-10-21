@@ -37,7 +37,7 @@ public class MemberListControl implements Control {
 			// forward() 경로를 재지정 하겠다
 			// 서버에서 받아 온 값을 클라이언트가 볼 수 있게 jsp파일로 경로를 재지정해서 넘긴다
 			// 그래서 jsp에서 화면단을 구현해서 클라이언트가 실질적으로 볼 수 있게 해주는것
-			req.getRequestDispatcher("WEB-INF/jsp/memberList.jsp").forward(req, resp);
+			req.getRequestDispatcher("admin/memberList.tiles").forward(req, resp);
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

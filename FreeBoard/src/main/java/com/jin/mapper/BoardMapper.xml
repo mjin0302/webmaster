@@ -58,11 +58,13 @@
 		INSERT INTO tbl_board ( board_no, 
 							    title, 
 							    content, 
-							    member_id )
+							    member_id,
+							    img )
 		VALUES                ( board_seq.NEXTVAL, 
 							    #{title}, 
 							    #{content}, 
-							    #{memberId} )
+							    #{memberId},
+							    #{img} )
 	</insert>
 	
 	<update id="updateBoard" parameterType="board">
@@ -90,7 +92,8 @@
 		       	 member_id,
 		       	 view_cnt,
 		       	 write_date,
-		       	 update_date
+		       	 update_date,
+		       	 img
 		FROM   	 tbl_board
 		WHERE    board_no = #{boardNo}
 	</select>
