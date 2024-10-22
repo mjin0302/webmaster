@@ -45,12 +45,12 @@
             </tbody>
         </table>
         <div class="mx-auto text-center">
-        	<button type="button" class="btn btn-warning text-center btn-lg m-1">수정</button>
+            <button type="button" class="btn btn-warning text-center btn-lg m-1">수정</button>
             <button type="button" class="btn btn-danger text-center btn-lg m-1">삭제</button>
         </div>
         <!-- 댓글관련 -->
-         <table id="replyList" class="table">
-            <legend>댓글</legend>
+        <table id="replyList" class="table">
+            <fieldset>댓글</fieldset>
             <thead>
                 <tr>
                     <th>번호</th>
@@ -61,7 +61,7 @@
             <tbody>
                 <!-- 댓글 내용 관련컨텐츠 -->
             </tbody>
-         </table>
+        </table>
     </form>
     
 <jsp:include page="../includes/footer.jsp"></jsp:include>

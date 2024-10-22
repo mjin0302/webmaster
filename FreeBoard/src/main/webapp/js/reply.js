@@ -5,43 +5,40 @@
  */
 service.rlist(595, // bno
    function(result) { // successFunc
-      console.log(result);
-
-      result.forEach((ele) => {
-            let tr = document.createElement("tr");
-            
-            Object.keys(ele).forEach((value) => {
-               let td = document.createElement("td");
-               td.innerText = ele[value];
-               tr.appendChild(td);
-            });
-   
-            let td = document.createElement("td")
-            let button = document.createElement("button");
-            button.innerText = "삭제"
-   
-            td.appendChild(button);
-            tr.appendChild(td);
-            
-            document.querySelector("#replyList").appendChild(tr);
-         });
-      // let fields = [];
-      // let btn = document.createElement("button");
-
-      // for(let i = 0; i < result.length; i++) {
-      //    console.log(result)
-      //    for(let prop in result) {
-      //       console.log(result[prop[i]]);
-      //    }
-      // }
-      
-      // for(let i = 0; i < result.length; i++) {
-      //    let tr = document.createElement("tr");
-      //    let td = document.createElement("td");
-      // }
-   }, 
+      makeList(result);
+   },
    function(error) { // errorFunc
       console.log(error);
    }
 
-)
+) // end service.rlist
+
+function makeList(data = []) {
+	for(let i = 0; i < data.length; i++) {
+		let tr = makeRow(obj[i]);
+		
+		document.querySelector("#replyList tbody").appendChild(tr);
+	}
+}
+
+function makeRow(data = {}) {
+	let fields = [ 'boardNo', 'reply', 'memberId' ];
+	let tr = document.createElement("tr");
+	
+	for(let i = 0; i < data.length; i++) {
+		let td = document.createElement("td");
+		td.innerText = data[fields[i]];
+		tr.appendChild(td);
+	}
+	
+	let td = document.createElement("td");
+	let btn = document.createElement("button");
+	btn.innerHTML = "삭제";
+	
+	btn.addEventListener("click", deleteRowFunc);
+	
+	td.appendChild(btn);
+	tr.appendChild(td);
+	
+	return tr;
+};

@@ -27,7 +27,7 @@ public class BoardAddControl implements Control {
 		MultipartRequest mr = new MultipartRequest(
 					req, 		// 1. 요청정보
 					savePath,	// 2. 저장경로
-					maxSize,	// 3. 최대크기
+					maxSize,	// 3. 최대크기Ø
 					"utf-8",	// 4. encoding 방식
 					new DefaultFileRenamePolicy()
 				);//	5. 리네임 정책
