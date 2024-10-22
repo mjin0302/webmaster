@@ -48,7 +48,20 @@
         	<button type="button" class="btn btn-warning text-center btn-lg m-1">수정</button>
             <button type="button" class="btn btn-danger text-center btn-lg m-1">삭제</button>
         </div>
-        
+        <!-- 댓글관련 -->
+         <table id="replyList" class="table">
+            <legend>댓글</legend>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 댓글 내용 관련컨텐츠 -->
+            </tbody>
+         </table>
     </form>
     
 <jsp:include page="../includes/footer.jsp"></jsp:include>
@@ -67,3 +80,5 @@
     });
 
 </script>
+<script src="js/replyService.js"></script>
+<script src="js/reply.js"></script>

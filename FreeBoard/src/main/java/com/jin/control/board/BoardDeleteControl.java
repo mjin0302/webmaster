@@ -1,4 +1,4 @@
-package com.jin.web;
+package com.jin.control.board;
 
 import java.io.IOException;
 

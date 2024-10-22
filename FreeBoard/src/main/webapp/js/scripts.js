@@ -1,3 +1,6 @@
+
+
+
 /*!
 * Start Bootstrap - Simple Sidebar v6.0.6 (https://startbootstrap.com/template/simple-sidebar)
 * Copyright 2013-2023 Start Bootstrap
@@ -24,3 +27,5 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+

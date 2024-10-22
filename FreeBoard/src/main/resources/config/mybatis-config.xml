@@ -20,6 +20,7 @@
 		<typeAlias alias="member" type="com.jin.vo.MemberVO" />
 		<typeAlias alias="board" type="com.jin.vo.BoardVO" />
 		<typeAlias alias="search" type="com.jin.common.SearchDTO" />
+		<typeAlias alias="reply" type="com.jin.vo.ReplyVO" />
 	</typeAliases>
 
 	<environments default="development">
@@ -39,6 +40,7 @@
 		<!-- 매핑파일경로 설정 -->
 		<mapper resource="com/jin/mapper/MemberMapper.xml" />
 		<mapper resource="com/jin/mapper/BoardMapper.xml" />
+		<mapper resource="com/jin/mapper/ReplyMapper.xml" />
 		
 	</mappers>
 </configuration>

@@ -1,4 +1,4 @@
-package com.jin.web;
+package com.jin.control;
 
 import java.io.IOException;
 
@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jin.common.Control;
 
-public class MemberAddFormControl implements Control {
+public class JavaScriptCont implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		// jsp 페이지 open.
-		req.getRequestDispatcher("WEB-INF/jsp/memberAddForm.jsp").forward(req, resp);
+
+		req.getRequestDispatcher("etc/javascript.tiles").forward(req, resp);
+
 	}
 
 }

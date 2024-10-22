@@ -7,7 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import com.jin.common.DataSource;
 import com.jin.common.SearchDTO;
 import com.jin.mapper.BoardMapper;
+import com.jin.mapper.ReplyMapper;
+import com.jin.service.ReplyService;
+import com.jin.service.ReplyServiceImpl;
 import com.jin.vo.BoardVO;
+import com.jin.vo.ReplyVO;
 
 public class AppTest {
 
@@ -16,6 +20,7 @@ public class AppTest {
 		SqlSession session = DataSource.getInstance().openSession();
 
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		ReplyMapper rMapper = session.getMapper(ReplyMapper.class);
 
 		BoardVO bvo = new BoardVO();
 
@@ -42,6 +47,22 @@ public class AppTest {
 //		for (BoardVO board : search) {
 //			System.out.println(board.toString());
 //		}
+		
+		ReplyService service = new ReplyServiceImpl();
+		
+		ReplyVO reply = new ReplyVO();
+		reply.setBoardNo(585);
+		reply.setReply("댓글 테스트");
+		reply.setMemberId("ongsim");
+		
+		service.addReply(reply);
+		
+		service.removeReply(reply.getReplyNo());
+		
+		List<ReplyVO> list = rMapper.selectList(595);
+		for(ReplyVO rep : list) {
+			System.out.println(rep.toString());
+		}
 
 	}
 }

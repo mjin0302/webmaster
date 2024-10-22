@@ -1,4 +1,4 @@
-package com.jin.web;
+package com.jin.control.member;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

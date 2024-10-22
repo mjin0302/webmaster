@@ -6,12 +6,27 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jin.common.Control;
+import com.jin.control.JavaScriptCont;
+import com.jin.control.board.BoardAddControl;
+import com.jin.control.board.BoardAddFormControl;
+import com.jin.control.board.BoardControl;
+import com.jin.control.board.BoardDeleteControl;
+import com.jin.control.board.BoardListControl;
+import com.jin.control.board.BoardUpdateControl;
+import com.jin.control.member.AddMemberControl;
+import com.jin.control.member.DelMemberControl;
+import com.jin.control.member.LogOutControl;
+import com.jin.control.member.LoginFormControl;
+import com.jin.control.member.MemberAddControl;
+import com.jin.control.member.MemberAddFormControl;
+import com.jin.control.member.MemberJsonControl;
+import com.jin.control.member.MemberListControl;
+import com.jin.control.reply.ReplyListControl;
 
 //@WebServlet("*.do") // .do로 끝나는 파일들은 해당 서비스를 실행한다.
 public class FrontController extends HttpServlet{
@@ -27,8 +42,6 @@ public class FrontController extends HttpServlet{
 	// 첫번째 실행
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		System.out.println("init호출");
-		
 		//            key      ,      value
 		// map = </memberAdd.do, MemberAddControl()>
 		map.put("/memberList.do", new MemberListControl());	// memberList.do 요청이 들어오면 MemberListControl을 실행 할꺼다
@@ -57,6 +70,22 @@ public class FrontController extends HttpServlet{
 		map.put("/loginOut.do", new LogOutControl());
 		
 		map.put("/javascript.do", new JavaScriptCont());
+		
+		// json관련
+		map.put("/memberJson.do", new MemberJsonControl());	// 멤버 목록 조회
+		map.put("/addMemberJson.do", new AddMemberControl());	// 멤버 등록
+		map.put("/removeMemberJson.do", new DelMemberControl());
+	
+		// 댓글관련(gson라이브러리 사용함)
+		map.put("/replyList.do", new ReplyListControl());
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 	
 	// front controller

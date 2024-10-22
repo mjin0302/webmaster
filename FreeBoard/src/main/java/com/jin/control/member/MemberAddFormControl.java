@@ -1,24 +1,20 @@
-package com.jin.web;
+package com.jin.control.member;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.jin.common.Control;
 
-public class LogOutControl implements Control {
+public class MemberAddFormControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// session 삭제
-		HttpSession session =  req.getSession();
-		session.invalidate();
-		
-		req.getRequestDispatcher("WEB-INF/jsp/loginForm.jsp").forward(req, resp);
+		// jsp 페이지 open.
+		req.getRequestDispatcher("WEB-INF/jsp/memberAddForm.jsp").forward(req, resp);
 	}
 
 }
