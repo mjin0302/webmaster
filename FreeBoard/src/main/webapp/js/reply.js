@@ -2,20 +2,6 @@
  * reply.js
  * 
  * replyService에서 생성했던 메소드를 활용
- * 
- * <table id="replyList" class="table">
-		<fieldset>댓글</fieldset>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>내용</th>
-				<th>작성자</th>
-			</tr>
-		</thead>
-		<tbody>
-				<!-- 댓글 내용 관련컨텐츠 -->
-		</tbody>
-	</table>
  */
 // ------------------------------------------------------------------------------------------
 // 댓글 등록 버튼
@@ -46,7 +32,8 @@ function addReplyHandlerFunc(e) {
 				page = 1;
 				showList();	// 목록 다시 보여줌
 				service.getReplyCount(bno, createPageList, err => console.log(err));
-            reply.innerText = "";
+
+            reply.value = "";
          } else if(result.retCode == "FAIL") {
             Swal.fire({
                text: "등록중 오류 발생",
@@ -70,10 +57,11 @@ let page = 1;
 function linkMove() {
 	document.querySelectorAll("nav ul.pagination a").forEach((ele) => {
 		ele.addEventListener("click", (e) => {
-			
-			e.preventDefault();
+
+			e.preventDefault();	// 페이지 이동 막기
+
+			// 페이지 번호를 업데이트
 			page = ele.dataset.page;
-			console.log("dsfasdfdasfadsf", page)
 			showList();	// 댓글 목록 출력
 			service.getReplyCount(bno, createPageList, err => console.log(err));
 		})
@@ -165,6 +153,7 @@ function deleteReplyFunc(e, page) {
                icon: "success"
             });
 				showList();	// 목록 다시 보여줌
+
 				service.getReplyCount(bno, createPageList, err => console.log(err));
 
 			} else if(result.retCode == "FAIL"){
