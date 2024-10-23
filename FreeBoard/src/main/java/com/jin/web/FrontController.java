@@ -26,6 +26,9 @@ import com.jin.control.member.MemberAddControl;
 import com.jin.control.member.MemberAddFormControl;
 import com.jin.control.member.MemberJsonControl;
 import com.jin.control.member.MemberListControl;
+import com.jin.control.reply.AddReplyControl;
+import com.jin.control.reply.RemoveReplyControl;
+import com.jin.control.reply.ReplyCountControl;
 import com.jin.control.reply.ReplyListControl;
 
 //@WebServlet("*.do") // .do로 끝나는 파일들은 해당 서비스를 실행한다.
@@ -78,9 +81,9 @@ public class FrontController extends HttpServlet{
 	
 		// 댓글관련(gson라이브러리 사용함)
 		map.put("/replyList.do", new ReplyListControl());
-	
-	
-	
+		map.put("/removeReply.do", new RemoveReplyControl());
+		map.put("/addReply.do", new AddReplyControl());
+		map.put("/replyCount.do", new ReplyCountControl());
 	
 	
 	

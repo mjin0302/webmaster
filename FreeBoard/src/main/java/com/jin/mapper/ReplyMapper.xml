@@ -8,19 +8,36 @@
 
 	<!-- 댓글 조회 -->
 	<select id="selectList" parameterType="int" resultType="reply">
-		SELECT reply_no,
-		       reply,
-		       member_id,
-		       board_no,
-		       reply_date
-		FROM   tbl_reply
-		WHERE  board_no = #{boardNo}
+		SELECT 	 /*+ INDEX_DESC (r SYS_C007193) */
+				 reply_no,
+		       	 reply,
+		       	 member_id,
+		       	 board_no,
+		       	 reply_date
+		FROM   	 tbl_reply r
+		WHERE  	 board_no = #{boardNo}
+		ORDER BY reply_no DESC
+	</select>
+	
+	<select id="selectListPaging" parameterType="reply">
+		SELECT a.*
+		FROM (SELECT /*+ INDEX_DESC (r SYS_C007198) */ rownum rn, r.*
+		      FROM   tbl_reply r
+		      WHERE  board_no = #{bno} ) a
+		WHERE a.rn > (#{page} -1) * 5
+		<![CDATA[
+		AND   a.rn <= #{page} * 5
+		]]>
 	</select>
 
 	<!-- 댓글 등록 -->
 	<insert id="insertReply" parameterType="reply">
+		<selectKey keyProperty="replyNo" order="BEFORE" resultType="int">
+			SELECT reply_seq.NEXTVAL 
+			FROM   dual
+		</selectKey>
 		INSERT INTO tbl_reply(reply_no, reply, member_id, board_no)
-		VALUES               (reply_seq.NEXTVAL, #{reply}, #{memberId}, #{boardNo})
+		VALUES               (#{replyNo}, #{reply}, #{memberId}, #{boardNo})
 	</insert>
 	
 	<!-- 댓글 삭제 -->
@@ -38,5 +55,11 @@
 		       reply_date
 		FROM   tbl_reply
 		WHERE  reply_no = #{replyNo})
+	</select>
+	
+	<select id="selectCount" parameterType="int">
+		SELECT count(1)
+		FROM   tbl_reply
+		WHERE  board_no = #{boardNo}
 	</select>
 </mapper>

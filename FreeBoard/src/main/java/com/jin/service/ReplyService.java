@@ -5,11 +5,13 @@ import java.util.List;
 import com.jin.vo.ReplyVO;
 
 public interface ReplyService {
-	List<ReplyVO> replyList(int boardNo);	// 댓글 조회
+	List<ReplyVO> replyList(int boardNo, int page);	// 댓글 조회
 	
 	boolean addReply(ReplyVO reply);	// 댓글 등록
 		
 	boolean removeReply(int replyNo);	// 댓글 삭제
 	
 	ReplyVO getReply(int replyNo);	// 단건 조회
+	
+	int replyCount(int boardNo);	// 댓글 카운트
 }

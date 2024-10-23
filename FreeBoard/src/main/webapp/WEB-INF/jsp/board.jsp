@@ -7,6 +7,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<style>
+    .reply ul {
+        list-style-type: none;
+    }
+    .reply span {
+        display: inline-block;
+        margin: 5px 0;
+        text-align: center;
+    }
+    
+    .reply span:nth-of-type(2) {
+        text-align: left;
+    }
+</style>
+
 <jsp:include page="../includes/header.jsp"></jsp:include>
     <h3>상세페이지(board.jsp)</h3>
     <form action="boardUpdate.do" method="GET">
@@ -38,8 +53,10 @@
                 </tr>
                 <tr class="p-2">
                     <th class="text-center">이미지</th>
-                    <c:if test="${ boardvo.getImg() } != null">
-                        <td colspan="3"><img src="images/${ boardvo.getImg() }" alt="" width="300px" height="auto"></td>
+                    <c:if test="${ boardvo.img  != null }">
+                        <td colspan="3">
+                            <img src="images/${ boardvo.img }" alt="" width="300px" height="auto">
+                        </td>
                     </c:if>
                 </tr>
             </tbody>
@@ -48,25 +65,51 @@
             <button type="button" class="btn btn-warning text-center btn-lg m-1">수정</button>
             <button type="button" class="btn btn-danger text-center btn-lg m-1">삭제</button>
         </div>
-        <!-- 댓글관련 -->
-        <table id="replyList" class="table">
-            <fieldset>댓글</fieldset>
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>내용</th>
-                    <th>작성자</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 댓글 내용 관련컨텐츠 -->
-            </tbody>
-        </table>
     </form>
+
+    <!-- 댓글관련 -->
+    <div class="container reply">
+        <div class="header">
+            <textarea id="reply" class="col-sm-10" cols="30" rows="5"></textarea>
+            <button id="replyAddBtn" class="">등록</button>
+        </div>
+        <div class="content">
+            <ul>
+                <li>
+                    <span class="col-sm-2">글번호</span>
+                    <span class="col-sm-5">내용</span>
+                    <span class="col-sm-2">작성자</span>
+                    <span class="col-sm-2">삭제</span>
+                </li>
+                <li>
+                    <!-- 댓글 내용 -->
+                </li>
+            </ul>
+        </div>
+        <!-- 댓글 페이징 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
     
 <jsp:include page="../includes/footer.jsp"></jsp:include>
 <script>
     let buttonEle = document.querySelectorAll("button");
+    const bno = "${boardvo.boardNo}";
+    const logId = "${logId}"; console.log(logId);
+    console.log(bno);
 
     buttonEle.forEach((ele) => {
         ele.addEventListener('click', (event) => {
