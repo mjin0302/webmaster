@@ -13,6 +13,9 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.3/dist/sweetalert2.all.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.3/dist/sweetalert2.min.css" rel="stylesheet">
     </head>
     <body>
 	   	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -35,8 +38,8 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">글목록</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="booardAddForm.do">글등록</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="javascript.do">자바스크립트 연습</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="chart.do">chart</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="fullCalendar.do">FullCalendar</a>
                 </div>
             </div>
             <!-- Page content wrapper-->

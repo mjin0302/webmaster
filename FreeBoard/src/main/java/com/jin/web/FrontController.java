@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jin.common.Control;
+import com.jin.control.ChartControl;
+import com.jin.control.CountWriterControl;
 import com.jin.control.JavaScriptCont;
 import com.jin.control.board.BoardAddControl;
 import com.jin.control.board.BoardAddFormControl;
@@ -18,6 +20,9 @@ import com.jin.control.board.BoardControl;
 import com.jin.control.board.BoardDeleteControl;
 import com.jin.control.board.BoardListControl;
 import com.jin.control.board.BoardUpdateControl;
+import com.jin.control.calendar.AddCalendarControl;
+import com.jin.control.calendar.FullCalendarControl;
+import com.jin.control.calendar.FullCalendarDataControl;
 import com.jin.control.member.AddMemberControl;
 import com.jin.control.member.DelMemberControl;
 import com.jin.control.member.LogOutControl;
@@ -85,9 +90,22 @@ public class FrontController extends HttpServlet{
 		map.put("/addReply.do", new AddReplyControl());
 		map.put("/replyCount.do", new ReplyCountControl());
 	
+		// chart
+		map.put("/chart.do", new ChartControl());
+		map.put("/countByWriter.do", new CountWriterControl());
 	
-	
-	
+		// fullCalendar
+		// 조회
+		map.put("/fullCalendar.do", new FullCalendarControl());	// 화면조회
+		map.put("/fullCalendarData.do", new FullCalendarDataControl());	// 정보 불러오기
+		
+		// 등록
+		map.put("/addEvent.do", new AddCalendarControl());
+		
+		
+		
+		
+		
 	
 	}
 	

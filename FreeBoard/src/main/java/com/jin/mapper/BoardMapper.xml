@@ -6,7 +6,7 @@
 <!-- Interface의 구현 클래스 -->
 <mapper namespace="com.jin.mapper.BoardMapper">
 
-	<!-- 게시글 전체조회 -->
+	<!-- 게시글 전체조회 --><!-- 페이징 -->
 	<select id="listWithPage" parameterType="search">
 		SELECT b.*
 		FROM  (SELECT rownum rn, a.* 
@@ -104,7 +104,17 @@
 		WHERE  board_no = #{boardNo}
 	</update>
 	
-	<!-- 페이징 -->
+	
+	<select id="countByWriter" resultType="hashmap">
+		SELECT   m.member_id AS "writer", 
+			     m.member_name AS "name", 
+			     count(1) AS "count"
+		FROM     tbl_board b
+		JOIN     tbl_member m
+		ON       b.member_id = m.member_id
+		GROUP BY m.member_id, m.member_name
+	
+	</select>
 	
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.jin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -55,6 +56,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getTotalCount(SearchDTO search) {
 		return mapper.selectCount(search);
+	}
+
+	// 사용자별 게시글 작성건수
+	@Override
+	public List<Map<String, Object>> countByWriter() {
+		return mapper.countByWriter();
 	}
 	
 } //BoardServiceImpl()

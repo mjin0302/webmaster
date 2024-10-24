@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.jin.mapper.FullCalendarMapper">
+
+	<select id="selectFullCalendar" resultType="hashmap">
+		SELECT   title AS "title",
+		         start_date AS "start",
+		         end_date AS "end"
+		FROM     tbl_event
+		ORDER BY start_date
+	</select>
+	
+	<insert id="addEvent" parameterType="calendar">
+		INSERT INTO tbl_event (title, 
+							   start_date, 
+							   end_date)
+		VALUES      		  (#{title},
+							   #{startDate},
+							   #{endDate} )
+	</insert>
+ 
+</mapper>

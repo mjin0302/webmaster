@@ -21,6 +21,7 @@
 		<typeAlias alias="board" type="com.jin.vo.BoardVO" />
 		<typeAlias alias="search" type="com.jin.common.SearchDTO" />
 		<typeAlias alias="reply" type="com.jin.vo.ReplyVO" />
+		<typeAlias alias="calendar" type="com.jin.vo.CalendarVO" />
 	</typeAliases>
 
 	<environments default="development">
@@ -41,6 +42,6 @@
 		<mapper resource="com/jin/mapper/MemberMapper.xml" />
 		<mapper resource="com/jin/mapper/BoardMapper.xml" />
 		<mapper resource="com/jin/mapper/ReplyMapper.xml" />
-		
+		<mapper resource="com/jin/mapper/FullCalendarMapper.xml" />
 	</mappers>
 </configuration>

@@ -20,28 +20,32 @@
 
         </head>
         <body>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+		<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         
         <% String logId = (String) session.getAttribute("logId"); %>
         
             <div class="d-flex" id="wrapper">
                 <!-- Sidebar-->
                 <div class="border-end bg-white" id="sidebar-wrapper">
-                    <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
-                    <div class="list-group list-group-flush">
-                    	<% if(logId == null) { %>
-                    		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginForm.do">Login In</a>
-                    	<% } else { %>
-                    		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginOut.do">Login Out(<small><%=logId %></small>)</a>
-                    	<% } %>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberList.do">회원목록</a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberAddForm.do">회원등록</a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시판 목록</a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="booardAddForm.do">게시글 등록</a>
-                        
-                        
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                    </div>
-                </div>
+	                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+	                <div class="list-group list-group-flush">
+	                <c:choose>
+	                	<c:when test="logId != null ">
+	                		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginOut.do">로그아웃</a>
+	                	</c:when>
+	                	<c:otherwise>
+	                		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginForm.do">로그인<small>${logId}</small></a>
+	                	</c:otherwise>
+	                </c:choose>
+	                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">글목록</a>
+	                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="booardAddForm.do">글등록</a>
+	                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="javascript.do">자바스크립트 연습</a>
+	                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="chart.do">chart</a>
+	                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="fullCalendar.do">FullCalendar</a>
+	                </div>
+	            </div>
                 <!-- Page content wrapper-->
                 <div id="page-content-wrapper">
                     <!-- Top navigation-->
