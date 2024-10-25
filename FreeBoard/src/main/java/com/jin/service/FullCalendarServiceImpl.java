@@ -25,4 +25,9 @@ public class FullCalendarServiceImpl implements FullCalendarService {
 		return mapper.addEvent(calendar) == 1;
 	}
 
+	@Override
+	public boolean removeEvent(CalendarVO calendar) {
+		return mapper.deleteEvent(calendar) == 1;
+	}
+
 }

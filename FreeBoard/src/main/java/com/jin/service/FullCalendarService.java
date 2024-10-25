@@ -10,4 +10,6 @@ public interface FullCalendarService {
 	List<Map<String, Object>> fullCalendarAllList();
 	
 	boolean addEvent(CalendarVO calendar);
+	
+	boolean removeEvent(CalendarVO calendar);
 }

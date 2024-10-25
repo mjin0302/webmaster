@@ -15,6 +15,8 @@ public class RemoveReplyControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 클라이언트가 보내준 댓글 번호를 기준으로 댓글 내용 삭제
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/json;charset=utf-8");
 		
 		String rno = req.getParameter("rno");
 

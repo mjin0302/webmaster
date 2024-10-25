@@ -3,7 +3,8 @@
 <script src="js/dist/index.global.js"></script>
 
 <script>
-    
+    let modalArg = null; // arg데이터를 담아놓고 공유하기 위해서
+    let calendar = null;
     document.addEventListener('DOMContentLoaded', async function() {
         var calendarEl = document.getElementById('calendar');
         
@@ -19,9 +20,7 @@
                                     //     fullCalendarFunc(eventData);
                                     // })
                                     // .catch(err => console.log(err));
-
-        console.log(eventData); 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar : {
                 left : 'prev,next today',
                 center : 'title',
@@ -32,50 +31,48 @@
             selectable : true,
             selectMirror : true,
             select : function(arg) {
-                var title = prompt('Event Title:');
-                if (title) {
-                    // title, start, end 값 
-                    console.log(arg);
-
-                    // 화면에 출력 해줌
-                    calendar.addEvent({
-                        title : title,
-                        start : arg.start,
-                        end : arg.end,
-                        allDay : arg.allDay
-                    })
-                    let start = today(arg.start, arg.allDay);
-                    let end = today(arg.end, arg.allDay);
+                modalShow(arg);
+                // var title = prompt('Event Title:');
+                //if (title) {
                     
-                    fetch('addEvent.do?title=' + title + '&start=' + start + '&end=' + end)
-                        .then(resolve => resolve.json())
-                        .then(result => {
-                            console.log("add result =>", result);
-                            Swal.fire({
-                                title: "Success!",
-                                text: "Event added successfully!",
-                                icon: "success"
-                            });
-                            location.reload();
-                        })
-                        .catch(err => console.log(err));
-                }
+                    // title, start, end 값
+                    // 화면에 출력 해줌
+               // }
                 calendar.unselect()
             },
             eventClick : function(arg) {
+                console.log("arg => ",arg)
                 Swal.fire({
-                        title: "Are you sure?",
-                        text: "Are you sure you want to delete this event?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Yes, delete it!"
-                    }).then((result) => {
-                        console.log("arg => ", arg);
-                        console.log("result => ", result);
-                        //arg.event.remove()
-                    });
+                    title: "Are you sure?",
+                    text: "Are you sure you want to delete this event?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+
+                    
+                    fetch('removeEvent.do?title=' + arg.event._def.title + '&start=' + today(arg.event.startStr, arg.event._def.allDay) + '&end=' + today(arg.event.endStr, arg.event._def.allDay))
+                    .then(resolve => resolve.json())
+                    .then(result => {
+                        if(result.retCode == "OK") {
+                            Swal.fire({
+                                text: "일정이 삭제되었습니다.",
+                                icon: "success"
+                            });
+                            arg.event.remove();
+                        } else if(result.retCode == "FAIL") {
+                            Swal.fire({
+                                title: "삭제 실패!",
+                                text: "삭제 중 예외 발생!",
+                                icon: "error"
+                            });
+                        }
+                    })
+                    .catch(err => console.log(err));
+                    //
+                });
             },
             editable : true,
             dayMaxEvents : true, // allow "more" link when too many events
@@ -85,31 +82,32 @@
         calendar.render();
         
         const today = (date, allDay) => {
+            let event = new Date(date);
+
             let today;
             if(allDay) {
-                console.log(date)
-                let year = date.getFullYear();
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
+                let year = event.getFullYear();
+                let month = event.getMonth() + 1;
+                let day = event.getDate();
 
                 if (month < 10) month = '0' + month;
                 if (day < 10) day = '0' + day;
 
                 return (year + '-' + month + '-' + day);
             } else {
-                let year = date.getFullYear();
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
-                let hours = date.getHours();
-                let minutes = date.getMinutes();
-                let seconds = date.getSeconds();
+                let year = event.getFullYear();
+                let month = event.getMonth() + 1;
+                let day = event.getDate();
+                let hours = event.getHours();
+                let minutes = event.getMinutes();
+                let seconds = event.getSeconds();
 
                 if (month < 10) month = '0' + month;
                 if (day < 10) day = '0' + day;
                 if (hours < 10) hours = '0' + hours;
                 if (minutes < 10) minutes = '0' + minutes;
                 if (seconds < 10) seconds = '0' + seconds;
-
+                console.log(year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds);
                 return (year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds);
             }
             
@@ -121,7 +119,6 @@
         fetch('deleteEvent.do?eventId=' + eventId)
             .then(resolve => resolve.json())
             .then(result => {
-                    console.log("delete result =>", result);
                     Swal.fire({
                         title: "Success!",
                         text: "Event deleted successfully!",
@@ -142,10 +139,9 @@
         if (month < 10) month = '0' + month;
         return today;
     }
-
-    
 	
 </script>
+
 <style>
 body {
 	margin: 40px 10px;
@@ -162,4 +158,37 @@ body {
 </head>
 <body>
 	<div id="calendar"></div>
+
+    <!-- 모달창 열기 -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- title, startStr, endStr -->
+                <label for="title">제목</label>
+                <input type="text" name="title" id="title"><br>
+                <label for="start">시작일시 </label>
+                <input type="date" name="start" onchange="startChange(event)" id="start"><br>
+                <label for="end">종료일시 </label>
+                <input type="date" name="end" onchange="endChange(event)" id="end"><br>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="modalSave()">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="js/calendarModal.js"></script>
 </body>

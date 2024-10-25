@@ -101,7 +101,7 @@ public class FrontController extends HttpServlet{
 		
 		// 등록
 		map.put("/addEvent.do", new AddCalendarControl());
-		
+		map.put("/removeEvent.do", new RemoveEventControl());
 		
 		
 		

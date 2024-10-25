@@ -21,5 +21,12 @@
 							   #{startDate},
 							   #{endDate} )
 	</insert>
+	
+	<delete id="deleteEvent" parameterType="calendar">
+		DELETE FROM tbl_event
+		WHERE  title = #{title}
+		AND    start_date = #{startDate}
+		AND    end_date = #{endDate}
+	</delete>
  
 </mapper>
